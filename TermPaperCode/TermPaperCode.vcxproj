@@ -27,6 +27,7 @@
   <ItemGroup>
     <ClCompile Include="Date.cpp" />
     <ClCompile Include="InventoryManager.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="Stationery.cpp" />
     <ClCompile Include="Transaction.cpp" />
   </ItemGroup>
