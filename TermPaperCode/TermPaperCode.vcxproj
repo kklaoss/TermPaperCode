@@ -20,11 +20,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Date.h" />
+    <ClInclude Include="InventoryManager.h" />
     <ClInclude Include="Stationery.h" />
     <ClInclude Include="Transaction.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Date.cpp" />
+    <ClCompile Include="InventoryManager.cpp" />
     <ClCompile Include="Stationery.cpp" />
     <ClCompile Include="Transaction.cpp" />
   </ItemGroup>
