@@ -1,48 +1,48 @@
-#include <iostream>
+п»ї#include <iostream>
 #include "InventoryManager.h"
 #include "Date.h"
 #include <memory>
 
-// Прототипы вспомогательных функций:
+// РџСЂРѕС‚РѕС‚РёРїС‹ РІСЃРїРѕРјРѕРіР°С‚РµР»СЊРЅС‹С… С„СѓРЅРєС†РёР№:
 void displayMenu();
 Date inputDate();
 double inputPositiveDouble(const std::string& prompt);
 int inputPositiveInt(const std::string& prompt);
 std::string inputNonEmptyString(const std::string& prompt);
 
-// Основная логика программы:
+// РћСЃРЅРѕРІРЅР°СЏ Р»РѕРіРёРєР° РїСЂРѕРіСЂР°РјРјС‹:
 int main()
 {
-	system("chcp 1251"); // Настройка кодировки для Windows
-	setlocale(LC_ALL, "RUS"); // Поддержка кириллицы
-	InventoryManager manager; // Создание менеджера склада
+	system("chcp 1251"); // РќР°СЃС‚СЂРѕР№РєР° РєРѕРґРёСЂРѕРІРєРё РґР»СЏ Windows
+	setlocale(LC_ALL, "RUS"); // РџРѕРґРґРµСЂР¶РєР° РєРёСЂРёР»Р»РёС†С‹
+	InventoryManager manager; // РЎРѕР·РґР°РЅРёРµ РјРµРЅРµРґР¶РµСЂР° СЃРєР»Р°РґР°
 	int choice = 0;
 
-	// Цикл меню:
+	// Р¦РёРєР» РјРµРЅСЋ:
 	do
 	{
-		displayMenu(); // Вывод меню
+		displayMenu(); // Р’С‹РІРѕРґ РјРµРЅСЋ
 		std::cin >> choice;
 		std::cin.ignore();
 		try
 		{
-			// Обработка выбора пользователя:
+			// РћР±СЂР°Р±РѕС‚РєР° РІС‹Р±РѕСЂР° РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ:
 			switch (choice)
 			{
-			case 1: // Добавление товара (с выбором категории)
+			case 1: // Р”РѕР±Р°РІР»РµРЅРёРµ С‚РѕРІР°СЂР° (СЃ РІС‹Р±РѕСЂРѕРј РєР°С‚РµРіРѕСЂРёРё)
 			{
-				std::string name = inputNonEmptyString("Введите название товара: ");
+				std::string name = inputNonEmptyString("Р’РІРµРґРёС‚Рµ РЅР°Р·РІР°РЅРёРµ С‚РѕРІР°СЂР°: ");
 				int categoryChoice;
 
-				double pPrice = inputPositiveDouble("Цена закупки: ");
-				double sPrice = inputPositiveDouble("Цена продажи: ");
-				int qty = inputPositiveInt("Начальное количество: ");
+				double pPrice = inputPositiveDouble("Р¦РµРЅР° Р·Р°РєСѓРїРєРё: ");
+				double sPrice = inputPositiveDouble("Р¦РµРЅР° РїСЂРѕРґР°Р¶Рё: ");
+				int qty = inputPositiveInt("РќР°С‡Р°Р»СЊРЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ: ");
 
-				std::cout << "Выберите категорию:\n"
-					<< "1. Письменные принадлежности\n"
-					<< "2. Бумажная продукция\n"
-					<< "3. Офисная техника\n"
-					<< "Ваш выбор: ";
+				std::cout << "Р’С‹Р±РµСЂРёС‚Рµ РєР°С‚РµРіРѕСЂРёСЋ:\n"
+					<< "1. РџРёСЃСЊРјРµРЅРЅС‹Рµ РїСЂРёРЅР°РґР»РµР¶РЅРѕСЃС‚Рё\n"
+					<< "2. Р‘СѓРјР°Р¶РЅР°СЏ РїСЂРѕРґСѓРєС†РёСЏ\n"
+					<< "3. РћС„РёСЃРЅР°СЏ С‚РµС…РЅРёРєР°\n"
+					<< "Р’Р°С€ РІС‹Р±РѕСЂ: ";
 				std::cin >> categoryChoice;
 				std::cin.ignore();
 
@@ -59,72 +59,72 @@ int main()
 					item = std::make_shared<OfficeEquipment>(name, pPrice, sPrice, qty);
 					break;
 				default:
-					std::cout << "Неверный выбор, товар не добавлен!\n";
+					std::cout << "РќРµРІРµСЂРЅС‹Р№ РІС‹Р±РѕСЂ, С‚РѕРІР°СЂ РЅРµ РґРѕР±Р°РІР»РµРЅ!\n";
 					continue;
 				}
 
 				manager.addItem(item);
-				std::cout << "Товар добавлен!\n";
+				std::cout << "РўРѕРІР°СЂ РґРѕР±Р°РІР»РµРЅ!\n";
 				break;
 			}
-			case 2: // Просмотр всех товаров
+			case 2: // РџСЂРѕСЃРјРѕС‚СЂ РІСЃРµС… С‚РѕРІР°СЂРѕРІ
 			{
 				const auto& items = manager.getAllItems();
 				if (items.empty())
 				{
-					std::cout << "Список товаров пуст.\n";
+					std::cout << "РЎРїРёСЃРѕРє С‚РѕРІР°СЂРѕРІ РїСѓСЃС‚.\n";
 					break;
 				}
-				std::cout << "\nСписок товаров:\n";
+				std::cout << "\nРЎРїРёСЃРѕРє С‚РѕРІР°СЂРѕРІ:\n";
 				for (const auto& item : items)
 				{
-					std::cout << "Название: " << item->getName()
-						<< ", Цена закупки: " << item->getPurchasePrice()
-						<< ", Цена продажи: " << item->getSalePrice()
-						<< ", Количество: " << item->getQuantity() << "\n";
+					std::cout << "РќР°Р·РІР°РЅРёРµ: " << item->getName()
+						<< ", Р¦РµРЅР° Р·Р°РєСѓРїРєРё: " << item->getPurchasePrice()
+						<< ", Р¦РµРЅР° РїСЂРѕРґР°Р¶Рё: " << item->getSalePrice()
+						<< ", РљРѕР»РёС‡РµСЃС‚РІРѕ: " << item->getQuantity() << "\n";
 				}
 				break;
 			}
-			case 3: // Пополнение запаса
+			case 3: // РџРѕРїРѕР»РЅРµРЅРёРµ Р·Р°РїР°СЃР°
 			{
-				std::string name = inputNonEmptyString("Введите название товара: ");
+				std::string name = inputNonEmptyString("Р’РІРµРґРёС‚Рµ РЅР°Р·РІР°РЅРёРµ С‚РѕРІР°СЂР°: ");
 
 				auto item = manager.findItemByName(name);
 				if (!item)
 				{
-					std::cout << "Товар не найден!\n";
+					std::cout << "РўРѕРІР°СЂ РЅРµ РЅР°Р№РґРµРЅ!\n";
 					break;
 				}
 
-				int quantity = inputPositiveInt("Введите количество для пополнения: ");
+				int quantity = inputPositiveInt("Р’РІРµРґРёС‚Рµ РєРѕР»РёС‡РµСЃС‚РІРѕ РґР»СЏ РїРѕРїРѕР»РЅРµРЅРёСЏ: ");
 				Date date = inputDate();
 				manager.restockItem(item, quantity, date);
-				std::cout << "Товар пополнен!\n";
+				std::cout << "РўРѕРІР°СЂ РїРѕРїРѕР»РЅРµРЅ!\n";
 				break;
 			}
-			case 4: // Продажа товара (с проверкой наличия)
+			case 4: // РџСЂРѕРґР°Р¶Р° С‚РѕРІР°СЂР° (СЃ РїСЂРѕРІРµСЂРєРѕР№ РЅР°Р»РёС‡РёСЏ)
 			{
-				std::string name = inputNonEmptyString("Введите название товара: ");
+				std::string name = inputNonEmptyString("Р’РІРµРґРёС‚Рµ РЅР°Р·РІР°РЅРёРµ С‚РѕРІР°СЂР°: ");
 
 				auto item = manager.findItemByName(name);
 				if (!item)
 				{
-					std::cout << "Товар не найден!\n";
+					std::cout << "РўРѕРІР°СЂ РЅРµ РЅР°Р№РґРµРЅ!\n";
 					break;
 				}
 
-				int quantity = inputPositiveInt("Введите количество для продажи: ");
+				int quantity = inputPositiveInt("Р’РІРµРґРёС‚Рµ РєРѕР»РёС‡РµСЃС‚РІРѕ РґР»СЏ РїСЂРѕРґР°Р¶Рё: ");
 				Date date = inputDate();
 				manager.sellItem(item, quantity, date);
-				std::cout << "Продажа оформлена!\n";
+				std::cout << "РџСЂРѕРґР°Р¶Р° РѕС„РѕСЂРјР»РµРЅР°!\n";
 				break;
 			}
-			case 5: // Отчет по продажам
-			case 6: // Отчет по прибыли
+			case 5: // РћС‚С‡РµС‚ РїРѕ РїСЂРѕРґР°Р¶Р°Рј
+			case 6: // РћС‚С‡РµС‚ РїРѕ РїСЂРёР±С‹Р»Рё
 			{
 				Date start = inputDate();
 				Date end = inputDate();
-				std::string filename = inputNonEmptyString("Введите имя файла для отчета: ");
+				std::string filename = inputNonEmptyString("Р’РІРµРґРёС‚Рµ РёРјСЏ С„Р°Р№Р»Р° РґР»СЏ РѕС‚С‡РµС‚Р°: ");
 
 				if (choice == 5)
 				{
@@ -134,51 +134,51 @@ int main()
 				{
 					manager.generateProfitReport(start, end, filename);
 				}
-				std::cout << "Отчет сохранен в " << filename << "!\n";
+				std::cout << "РћС‚С‡РµС‚ СЃРѕС…СЂР°РЅРµРЅ РІ " << filename << "!\n";
 				break;
 			}
-			case 7: // Выход
-				std::cout << "До свидания!\n";
+			case 7: // Р’С‹С…РѕРґ
+				std::cout << "Р”Рѕ СЃРІРёРґР°РЅРёСЏ!\n";
 				break;
 			default:
-				std::cout << "Неверный выбор. Попробуйте снова.\n";
+				std::cout << "РќРµРІРµСЂРЅС‹Р№ РІС‹Р±РѕСЂ. РџРѕРїСЂРѕР±СѓР№С‚Рµ СЃРЅРѕРІР°.\n";
 			}
 		}
 		catch (const std::exception& e)
 		{
-			std::cerr << "Ошибка: " << e.what() << "\n";
+			std::cerr << "РћС€РёР±РєР°: " << e.what() << "\n";
 		}
 	} while (choice != 7);
 
 	return 0;
 }
 
-// Вспомогательные функции:
-void displayMenu() // Вывод меню
+// Р’СЃРїРѕРјРѕРіР°С‚РµР»СЊРЅС‹Рµ С„СѓРЅРєС†РёРё:
+void displayMenu() // Р’С‹РІРѕРґ РјРµРЅСЋ
 {
-	std::cout << "\n=== Меню управления ===\n"
-		<< "1. Добавить новый товар\n"
-		<< "2. Просмотреть все товары\n"
-		<< "3. Пополнить запас товара\n"
-		<< "4. Продать товар\n"
-		<< "5. Сгенерировать отчет по продажам\n"
-		<< "6. Сгенерировать отчет по прибыли\n"
-		<< "7. Выход\n"
-		<< "Выберите действие: ";
+	std::cout << "\n=== РњРµРЅСЋ СѓРїСЂР°РІР»РµРЅРёСЏ ===\n"
+		<< "1. Р”РѕР±Р°РІРёС‚СЊ РЅРѕРІС‹Р№ С‚РѕРІР°СЂ\n"
+		<< "2. РџСЂРѕСЃРјРѕС‚СЂРµС‚СЊ РІСЃРµ С‚РѕРІР°СЂС‹\n"
+		<< "3. РџРѕРїРѕР»РЅРёС‚СЊ Р·Р°РїР°СЃ С‚РѕРІР°СЂР°\n"
+		<< "4. РџСЂРѕРґР°С‚СЊ С‚РѕРІР°СЂ\n"
+		<< "5. РЎРіРµРЅРµСЂРёСЂРѕРІР°С‚СЊ РѕС‚С‡РµС‚ РїРѕ РїСЂРѕРґР°Р¶Р°Рј\n"
+		<< "6. РЎРіРµРЅРµСЂРёСЂРѕРІР°С‚СЊ РѕС‚С‡РµС‚ РїРѕ РїСЂРёР±С‹Р»Рё\n"
+		<< "7. Р’С‹С…РѕРґ\n"
+		<< "Р’С‹Р±РµСЂРёС‚Рµ РґРµР№СЃС‚РІРёРµ: ";
 }
 
-Date inputDate() // Ввод даты с проверкой валидности
+Date inputDate() // Р’РІРѕРґ РґР°С‚С‹ СЃ РїСЂРѕРІРµСЂРєРѕР№ РІР°Р»РёРґРЅРѕСЃС‚Рё
 {
 	int d, m, y;
 	while (true)
 	{
-		std::cout << "Введите дату (дд мм гггг): ";
+		std::cout << "Р’РІРµРґРёС‚Рµ РґР°С‚Сѓ (РґРґ РјРј РіРіРіРі): ";
 		std::cin >> d >> m >> y;
 		if (std::cin.fail() || !Date(d, m, y).isValid())
 		{
 			std::cin.clear();
 			std::cin.ignore();
-			std::cout << "Некорректная дата! Попробуйте снова.\n";
+			std::cout << "РќРµРєРѕСЂСЂРµРєС‚РЅР°СЏ РґР°С‚Р°! РџРѕРїСЂРѕР±СѓР№С‚Рµ СЃРЅРѕРІР°.\n";
 		}
 		else
 		{
@@ -189,7 +189,7 @@ Date inputDate() // Ввод даты с проверкой валидности
 	return Date(d, m, y);
 }
 
-double inputPositiveDouble(const std::string& prompt) // Ввод положительного числа (double)
+double inputPositiveDouble(const std::string& prompt) // Р’РІРѕРґ РїРѕР»РѕР¶РёС‚РµР»СЊРЅРѕРіРѕ С‡РёСЃР»Р° (double)
 {
 	double value;
 	while (true)
@@ -197,14 +197,14 @@ double inputPositiveDouble(const std::string& prompt) // Ввод положительного чис
 		std::cout << prompt;
 		std::cin >> value;
 		if (value > 0) break;
-		std::cout << "Число должно быть положительным! Попробуйте снова.\n";
+		std::cout << "Р§РёСЃР»Рѕ РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ РїРѕР»РѕР¶РёС‚РµР»СЊРЅС‹Рј! РџРѕРїСЂРѕР±СѓР№С‚Рµ СЃРЅРѕРІР°.\n";
 		std::cin.clear();
 		std::cin.ignore();
 	}
 	return value;
 }
 
-int inputPositiveInt(const std::string& prompt) // Ввод положительного целого числа
+int inputPositiveInt(const std::string& prompt) // Р’РІРѕРґ РїРѕР»РѕР¶РёС‚РµР»СЊРЅРѕРіРѕ С†РµР»РѕРіРѕ С‡РёСЃР»Р°
 {
 	int value;
 	while (true)
@@ -212,20 +212,20 @@ int inputPositiveInt(const std::string& prompt) // Ввод положительного целого чи
 		std::cout << prompt;
 		std::cin >> value;
 		if (value > 0) break;
-		std::cout << "Число должно быть положительным! Попробуйте снова.\n";
+		std::cout << "Р§РёСЃР»Рѕ РґРѕР»Р¶РЅРѕ Р±С‹С‚СЊ РїРѕР»РѕР¶РёС‚РµР»СЊРЅС‹Рј! РџРѕРїСЂРѕР±СѓР№С‚Рµ СЃРЅРѕРІР°.\n";
 		std::cin.clear();
 		std::cin.ignore();
 	}
 	return value;
 }
-std::string inputNonEmptyString(const std::string& prompt) // Ввод непустой строки
+std::string inputNonEmptyString(const std::string& prompt) // Р’РІРѕРґ РЅРµРїСѓСЃС‚РѕР№ СЃС‚СЂРѕРєРё
 {
 	std::string input;
 	while (true)
 	{
 		std::cout << prompt;
 		std::getline(std::cin, input);
-		// Удаляем лишние пробелы в начале и конце строки
+		// РЈРґР°Р»СЏРµРј Р»РёС€РЅРёРµ РїСЂРѕР±РµР»С‹ РІ РЅР°С‡Р°Р»Рµ Рё РєРѕРЅС†Рµ СЃС‚СЂРѕРєРё
 		size_t start = input.find_first_not_of(" \t");
 		if (start != std::string::npos)
 		{
@@ -233,7 +233,7 @@ std::string inputNonEmptyString(const std::string& prompt) // Ввод непустой стро
 			input = input.substr(start, end - start + 1);
 		}
 		if (!input.empty()) break;
-		std::cout << "Поле не может быть пустым! Попробуйте снова.\n";
+		std::cout << "РџРѕР»Рµ РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РїСѓСЃС‚С‹Рј! РџРѕРїСЂРѕР±СѓР№С‚Рµ СЃРЅРѕРІР°.\n";
 	}
 	return input;
 }
