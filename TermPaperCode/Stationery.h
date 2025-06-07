@@ -3,45 +3,45 @@
 
 #include <string>
 
-// Р‘Р°Р·РѕРІС‹Р№ Р°Р±СЃС‚СЂР°РєС‚РЅС‹Р№ РєР»Р°СЃСЃ РґР»СЏ РєР°РЅС†РµР»СЏСЂСЃРєРёС… С‚РѕРІР°СЂРѕРІ
+// Базовый абстрактный класс для канцелярских товаров
 class Stationery
 {
 protected:
-	std::string name;		// РќР°Р·РІР°РЅРёРµ С‚РѕРІР°СЂР°
-	double purchasePrice;	// Р¦РµРЅР° Р·Р°РєСѓРїРєРё
-	double salePrice;		// Р¦РµРЅР° РїСЂРѕРґР°Р¶Рё
-	int quantity;			// РљРѕР»РёС‡РµСЃС‚РІРѕ РЅР° СЃРєР»Р°РґРµ
+	std::string name;		// Название товара
+	double purchasePrice;	// Цена закупки
+	double salePrice;		// Цена продажи
+	int quantity;			// Количество на складе
 
 public:
-	Stationery(const std::string& name, double purchasePrice, double salePrice, int quantity); // РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
+	Stationery(const std::string& name, double purchasePrice, double salePrice, int quantity); // Конструктор
 	virtual ~Stationery() = default;
-	virtual std::string getCategory() const = 0; // Р’РёСЂС‚СѓР°Р»СЊРЅС‹Р№ РјРµС‚РѕРґ РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РєР°С‚РµРіРѕСЂРёРё С‚РѕРІР°СЂР°
+	virtual std::string getCategory() const = 0; // Виртуальный метод для получения категории товара
 
-	// Р“РµС‚С‚РµСЂС‹ Рё СЃРµС‚С‚РµСЂ РґР»СЏ СЂР°Р±РѕС‚С‹ СЃ РїРѕР»СЏРјРё:
+	// Геттеры и сеттер для работы с полями:
 	std::string getName() const;
 	double getPurchasePrice() const;
 	double getSalePrice() const;
 	int getQuantity() const;
 
-	void setQuantity(int newQuantity); // РћР±РЅРѕРІР»РµРЅРёРµ РєРѕР»РёС‡РµСЃС‚РІР° С‚РѕРІР°СЂР°
+	void setQuantity(int newQuantity); // Обновление количества товара
 };
 
-// РџСЂРѕРёР·РІРѕРґРЅС‹Рµ РєР»Р°СЃСЃС‹ РґР»СЏ РєРѕРЅРєСЂРµС‚РЅС‹С… РєР°С‚РµРіРѕСЂРёР№ С‚РѕРІР°СЂРѕРІ:
-class WritingSupplies : public Stationery // РџРёСЃСЊРјРµРЅРЅС‹Рµ РїСЂРёРЅР°РґР»РµР¶РЅРѕСЃС‚Рё
+// Производные классы для конкретных категорий товаров:
+class WritingSupplies : public Stationery // Письменные принадлежности
 {
 public:
 	WritingSupplies(const std::string& name, double purchasePrice, double salePrice, int quantity);
 	std::string getCategory() const override;
 };
 
-class PaperProducts : public Stationery // Р‘СѓРјР°Р¶РЅР°СЏ РїСЂРѕРґСѓРєС†РёСЏ
+class PaperProducts : public Stationery // Бумажная продукция
 {
 public:
 	PaperProducts(const std::string& name, double purchasePrice, double salePrice, int quantity);
 	std::string getCategory() const override;
 };
 
-class OfficeEquipment : public Stationery // РћС„РёСЃРЅР°СЏ С‚РµС…РЅРёРєР°
+class OfficeEquipment : public Stationery // Офисная техника
 {
 public:
 	OfficeEquipment(const std::string& name, double purchasePrice, double salePrice, int quantity);
