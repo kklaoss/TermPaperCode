@@ -4,22 +4,22 @@
 #include "Stationery.h"
 #include "Date.h"
 
-// РўРёРї С‚СЂР°РЅР·Р°РєС†РёРё: РїСЂРѕРґР°Р¶Р° РёР»Рё РїРѕРїРѕР»РЅРµРЅРёРµ
+// Тип транзакции: продажа или пополнение
 enum class TransactionType { SALE, RESTOCK };
 
-// РљР»Р°СЃСЃ РґР»СЏ С…СЂР°РЅРµРЅРёСЏ РёРЅС„РѕСЂРјР°С†РёРё Рѕ С‚СЂР°РЅР·Р°РєС†РёРё
+// Класс для хранения информации о транзакции
 class Transaction
 {
 private:
-	Date date;				// Р”Р°С‚Р° С‚СЂР°РЅР·Р°РєС†РёРё
-	TransactionType type;	// РўРёРї (РїСЂРѕРґР°Р¶Р°/РїРѕРїРѕР»РЅРµРЅРёРµ)
-	Stationery* item;		// РЈРєР°Р·Р°С‚РµР»СЊ РЅР° С‚РѕРІР°СЂ
-	int quantity;			// РљРѕР»РёС‡РµСЃС‚РІРѕ С‚РѕРІР°СЂР°
+	Date date;				// Дата транзакции
+	TransactionType type;	// Тип (продажа/пополнение)
+	Stationery* item;		// Указатель на товар
+	int quantity;			// Количество товара
 
 public:
-	Transaction(const Date& date, TransactionType type, Stationery* item, int quantity); // РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
+	Transaction(const Date& date, TransactionType type, Stationery* item, int quantity); // Конструктор
 
-	// Р“РµС‚С‚РµСЂС‹ РґР»СЏ РґРѕСЃС‚СѓРїР° Рє РїРѕР»СЏРј:
+	// Геттеры для доступа к полям:
 	Date getDate() const;
 	TransactionType getType() const;
 	Stationery* getItem() const;
