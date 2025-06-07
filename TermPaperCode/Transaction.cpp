@@ -1,11 +1,11 @@
 #include "Transaction.h"
 
-// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ С‚СЂР°РЅР·Р°РєС†РёРё : СЃРѕС…СЂР°РЅСЏРµС‚ РґР°С‚Сѓ, С‚РёРї, С‚РѕРІР°СЂ Рё РєРѕР»РёС‡РµСЃС‚РІРѕ
+// Конструктор транзакции : сохраняет дату, тип, товар и количество
 Transaction::Transaction(const Date& date, TransactionType type, Stationery* item, int quantity)
 	: date(date), type(type), item(item), quantity(quantity) {
 }
 
-// Р“РµС‚С‚РµСЂС‹ РґР»СЏ РґРѕСЃС‚СѓРїР° Рє РґР°РЅРЅС‹Рј С‚СЂР°РЅР·Р°РєС†РёРё:
+// Геттеры для доступа к данным транзакции:
 Date Transaction::getDate() const { return date; }
 TransactionType Transaction::getType() const { return type; }
 Stationery* Transaction::getItem() const { return item; }
