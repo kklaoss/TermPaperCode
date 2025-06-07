@@ -1,23 +1,23 @@
-#include "InventoryManager.h"
+п»ї#include "InventoryManager.h"
 #include <fstream>
 #include <map>
 #include <algorithm>
 #include <memory>
 
-// Добавление товара в список (через shared_ptr)
+// Р”РѕР±Р°РІР»РµРЅРёРµ С‚РѕРІР°СЂР° РІ СЃРїРёСЃРѕРє (С‡РµСЂРµР· shared_ptr)
 void InventoryManager::addItem(const std::shared_ptr<Stationery>& item)
 {
 	items.push_back(item);
 }
 
-// Пополнение запаса товара: увеличивает количество и создаёт транзакцию
+// РџРѕРїРѕР»РЅРµРЅРёРµ Р·Р°РїР°СЃР° С‚РѕРІР°СЂР°: СѓРІРµР»РёС‡РёРІР°РµС‚ РєРѕР»РёС‡РµСЃС‚РІРѕ Рё СЃРѕР·РґР°С‘С‚ С‚СЂР°РЅР·Р°РєС†РёСЋ
 void InventoryManager::restockItem(const std::shared_ptr<Stationery>& item, int quantity, const Date& date)
 {
 	item->setQuantity(item->getQuantity() + quantity);
 	transactions.emplace_back(date, TransactionType::RESTOCK, item.get(), quantity);
 }
 
-// Продажа товара: проверяет наличие, уменьшает количество, создаёт транзакцию
+// РџСЂРѕРґР°Р¶Р° С‚РѕРІР°СЂР°: РїСЂРѕРІРµСЂСЏРµС‚ РЅР°Р»РёС‡РёРµ, СѓРјРµРЅСЊС€Р°РµС‚ РєРѕР»РёС‡РµСЃС‚РІРѕ, СЃРѕР·РґР°С‘С‚ С‚СЂР°РЅР·Р°РєС†РёСЋ
 void InventoryManager::sellItem(const std::shared_ptr<Stationery>& item, int quantity, const Date& date)
 {
 	if (item->getQuantity() < quantity) throw std::runtime_error("Not enough stock");
@@ -25,7 +25,7 @@ void InventoryManager::sellItem(const std::shared_ptr<Stationery>& item, int qua
 	transactions.emplace_back(date, TransactionType::SALE, item.get(), quantity);
 }
 
-// Поиск товара по имени (возвращает nullptr, если не найден)
+// РџРѕРёСЃРє С‚РѕРІР°СЂР° РїРѕ РёРјРµРЅРё (РІРѕР·РІСЂР°С‰Р°РµС‚ nullptr, РµСЃР»Рё РЅРµ РЅР°Р№РґРµРЅ)
 std::shared_ptr<Stationery> InventoryManager::findItemByName(const std::string& name)
 {
 	auto it = std::find_if(items.begin(), items.end(),
@@ -33,19 +33,19 @@ std::shared_ptr<Stationery> InventoryManager::findItemByName(const std::string& 
 	return (it != items.end()) ? *it : nullptr;
 }
 
-// Возвращает список всех товаров (константная ссылка)
+// Р’РѕР·РІСЂР°С‰Р°РµС‚ СЃРїРёСЃРѕРє РІСЃРµС… С‚РѕРІР°СЂРѕРІ (РєРѕРЅСЃС‚Р°РЅС‚РЅР°СЏ СЃСЃС‹Р»РєР°)
 const std::vector<std::shared_ptr<Stationery>>& InventoryManager::getAllItems() const
 {
 	return items;
 }
 
-// Генерация отчёта по продажам за период
+// Р“РµРЅРµСЂР°С†РёСЏ РѕС‚С‡С‘С‚Р° РїРѕ РїСЂРѕРґР°Р¶Р°Рј Р·Р° РїРµСЂРёРѕРґ
 void InventoryManager::generateSalesReport(const Date& start, const Date& end, const std::string& filename)
 {
 	std::ofstream file(filename);
-	std::map<std::string, double> categorySales; // Группировка по категориям
+	std::map<std::string, double> categorySales; // Р“СЂСѓРїРїРёСЂРѕРІРєР° РїРѕ РєР°С‚РµРіРѕСЂРёСЏРј
 
-	// Фильтрация транзакций: период + тип SALE
+	// Р¤РёР»СЊС‚СЂР°С†РёСЏ С‚СЂР°РЅР·Р°РєС†РёР№: РїРµСЂРёРѕРґ + С‚РёРї SALE
 	for (const auto& t : transactions)
 	{
 		if (t.getDate() >= start && t.getDate() <= end && t.getType() == TransactionType::SALE)
@@ -55,14 +55,14 @@ void InventoryManager::generateSalesReport(const Date& start, const Date& end, c
 		}
 	}
 
-	// Запись в файл
-	file << "Отчет по продажам (" << start.toString() << " - " << end.toString() << ")\n";
+	// Р—Р°РїРёСЃСЊ РІ С„Р°Р№Р»
+	file << "РћС‚С‡РµС‚ РїРѕ РїСЂРѕРґР°Р¶Р°Рј (" << start.toString() << " - " << end.toString() << ")\n";
 	for (const auto& entry : categorySales) {
-		file << "Категория: " << entry.first << " - Сумма: " << entry.second << "\n";
+		file << "РљР°С‚РµРіРѕСЂРёСЏ: " << entry.first << " - РЎСѓРјРјР°: " << entry.second << "\n";
 	}
 }
 
-// Генерация отчёта по прибыли за период (аналогично продажам)
+// Р“РµРЅРµСЂР°С†РёСЏ РѕС‚С‡С‘С‚Р° РїРѕ РїСЂРёР±С‹Р»Рё Р·Р° РїРµСЂРёРѕРґ (Р°РЅР°Р»РѕРіРёС‡РЅРѕ РїСЂРѕРґР°Р¶Р°Рј)
 void InventoryManager::generateProfitReport(const Date& start, const Date& end, const std::string& filename)
 {
 	std::ofstream file(filename);
@@ -78,9 +78,9 @@ void InventoryManager::generateProfitReport(const Date& start, const Date& end, 
 		}
 	}
 
-	file << "Отчет по прибыли (" << start.toString() << " - " << end.toString() << ")\n";
+	file << "РћС‚С‡РµС‚ РїРѕ РїСЂРёР±С‹Р»Рё (" << start.toString() << " - " << end.toString() << ")\n";
 	for (const auto& entry : categoryProfit)
 	{
-		file << "Категория: " << entry.first << " - Прибыль: " << entry.second << "\n";
+		file << "РљР°С‚РµРіРѕСЂРёСЏ: " << entry.first << " - РџСЂРёР±С‹Р»СЊ: " << entry.second << "\n";
 	}
 }
