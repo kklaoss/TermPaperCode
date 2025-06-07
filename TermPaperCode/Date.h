@@ -3,22 +3,22 @@
 
 #include <string>
 
-// РљР»Р°СЃСЃ РґР»СЏ СЂР°Р±РѕС‚С‹ СЃ РґР°С‚Р°РјРё
+// Класс для работы с датами
 class Date
 {
 private:
-	int day, month, year; // Р”РµРЅСЊ, РјРµСЃСЏС†, РіРѕРґ
+	int day, month, year; // День, месяц, год
 
 public:
-	Date(int d, int m, int y); // РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
-	bool isValid() const; // РџСЂРѕРІРµСЂРєР° РІР°Р»РёРґРЅРѕСЃС‚Рё РґР°С‚С‹
-	std::string toString() const; // РџСЂРµРѕР±СЂР°Р·РѕРІР°РЅРёРµ РґР°С‚С‹ РІ СЃС‚СЂРѕРєСѓ С„РѕСЂРјР°С‚Р° "РґРґ.РјРј.РіРіРіРі"
+	Date(int d, int m, int y); // Конструктор
+	bool isValid() const; // Проверка валидности даты
+	std::string toString() const; // Преобразование даты в строку формата "дд.мм.гггг"
 
-	// РћРїРµСЂР°С‚РѕСЂС‹ СЃСЂР°РІРЅРµРЅРёСЏ РґР»СЏ СЂР°Р±РѕС‚С‹ СЃ РґР°С‚Р°РјРё:
-	bool operator==(const Date& other) const;		// РџСЂРѕРІРµСЂРєР° РЅР° СЂР°РІРµРЅСЃС‚РІРѕ
-	bool operator<(const Date& other) const;		// РЎСЂР°РІРЅРµРЅРёРµ "РјРµРЅСЊС€Рµ" (СЃРЅР°С‡Р°Р»Р° РіРѕРґ, РїРѕС‚РѕРј РјРµСЃСЏС†, РїРѕС‚РѕРј РґРµРЅСЊ)
-	bool operator>=(const Date& other) const;		// "Р‘РѕР»СЊС€Рµ РёР»Рё СЂР°РІРЅРѕ" (РѕР±СЂР°С‚РЅРѕРµ <)
-	bool operator<=(const Date& other) const;		// "РњРµРЅСЊС€Рµ РёР»Рё СЂР°РІРЅРѕ" (РѕР±СЉРµРґРёРЅРµРЅРёРµ < Рё ==)
+	// Операторы сравнения для работы с датами:
+	bool operator==(const Date& other) const;		// Проверка на равенство
+	bool operator<(const Date& other) const;		// Сравнение "меньше" (сначала год, потом месяц, потом день)
+	bool operator>=(const Date& other) const;		// "Больше или равно" (обратное <)
+	bool operator<=(const Date& other) const;		// "Меньше или равно" (объединение < и ==)
 };
 
 #endif
