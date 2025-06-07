@@ -1,32 +1,32 @@
-#include "Stationery.h"
+п»ї#include "Stationery.h"
 
-// Конструктор базового класса: инициализация общих полей
+// РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ Р±Р°Р·РѕРІРѕРіРѕ РєР»Р°СЃСЃР°: РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ РѕР±С‰РёС… РїРѕР»РµР№
 Stationery::Stationery(const std::string& name, double purchasePrice, double salePrice, int quantity)
 	: name(name), purchasePrice(purchasePrice), salePrice(salePrice), quantity(quantity) {
 }
 
-// Геттеры и сеттер:
+// Р“РµС‚С‚РµСЂС‹ Рё СЃРµС‚С‚РµСЂ:
 std::string Stationery::getName() const { return name; }
 double Stationery::getPurchasePrice() const { return purchasePrice; }
 double Stationery::getSalePrice() const { return salePrice; }
 int Stationery::getQuantity() const { return quantity; }
 void Stationery::setQuantity(int newQuantity) { quantity = newQuantity; }
 
-// Реализации для производных классов:
-// Категория "Письменные принадлежности"
+// Р РµР°Р»РёР·Р°С†РёРё РґР»СЏ РїСЂРѕРёР·РІРѕРґРЅС‹С… РєР»Р°СЃСЃРѕРІ:
+// РљР°С‚РµРіРѕСЂРёСЏ "РџРёСЃСЊРјРµРЅРЅС‹Рµ РїСЂРёРЅР°РґР»РµР¶РЅРѕСЃС‚Рё"
 WritingSupplies::WritingSupplies(const std::string& name, double pPrice, double sPrice, int qty)
 	: Stationery(name, pPrice, sPrice, qty) {
 }
-std::string WritingSupplies::getCategory() const { return "Письменные принадлежности"; }
+std::string WritingSupplies::getCategory() const { return "РџРёСЃСЊРјРµРЅРЅС‹Рµ РїСЂРёРЅР°РґР»РµР¶РЅРѕСЃС‚Рё"; }
 
-// Категория "Бумажная продукция"
+// РљР°С‚РµРіРѕСЂРёСЏ "Р‘СѓРјР°Р¶РЅР°СЏ РїСЂРѕРґСѓРєС†РёСЏ"
 PaperProducts::PaperProducts(const std::string& name, double pPrice, double sPrice, int qty)
 	: Stationery(name, pPrice, sPrice, qty) {
 }
-std::string PaperProducts::getCategory() const { return "Бумажная продукция"; }
+std::string PaperProducts::getCategory() const { return "Р‘СѓРјР°Р¶РЅР°СЏ РїСЂРѕРґСѓРєС†РёСЏ"; }
 
-// Категория "Офисная техника"
+// РљР°С‚РµРіРѕСЂРёСЏ "РћС„РёСЃРЅР°СЏ С‚РµС…РЅРёРєР°"
 OfficeEquipment::OfficeEquipment(const std::string& name, double pPrice, double sPrice, int qty)
 	: Stationery(name, pPrice, sPrice, qty) {
 }
-std::string OfficeEquipment::getCategory() const { return "Офисная техника"; }
+std::string OfficeEquipment::getCategory() const { return "РћС„РёСЃРЅР°СЏ С‚РµС…РЅРёРєР°"; }
