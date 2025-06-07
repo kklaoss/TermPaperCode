@@ -1,4 +1,4 @@
-#ifndef INVENTORY_MANAGER_H
+п»ї#ifndef INVENTORY_MANAGER_H
 #define INVENTORY_MANAGER_H
 
 #include <vector>
@@ -6,25 +6,25 @@
 #include "Transaction.h"
 #include "Stationery.h"
 
-// Класс для управления складом и транзакциями
+// РљР»Р°СЃСЃ РґР»СЏ СѓРїСЂР°РІР»РµРЅРёСЏ СЃРєР»Р°РґРѕРј Рё С‚СЂР°РЅР·Р°РєС†РёСЏРјРё
 class InventoryManager
 {
 private:
-	std::vector<std::shared_ptr<Stationery>> items; // Список товаров (владение через умные указатели)
-	std::vector<Transaction> transactions; // История транзакций
+	std::vector<std::shared_ptr<Stationery>> items; // РЎРїРёСЃРѕРє С‚РѕРІР°СЂРѕРІ (РІР»Р°РґРµРЅРёРµ С‡РµСЂРµР· СѓРјРЅС‹Рµ СѓРєР°Р·Р°С‚РµР»Рё)
+	std::vector<Transaction> transactions; // РСЃС‚РѕСЂРёСЏ С‚СЂР°РЅР·Р°РєС†РёР№
 
 public:
-	void addItem(const std::shared_ptr<Stationery>& item); // Добавление нового товара
-	void restockItem(const std::shared_ptr<Stationery>& item, int quantity, const Date& date); // Пополнение запаса (увеличивает количество, создает транзакцию)
-	void sellItem(const std::shared_ptr<Stationery>& item, int quantity, const Date& date); // Продажа товара (уменьшает количество, создает транзакцию)
+	void addItem(const std::shared_ptr<Stationery>& item); // Р”РѕР±Р°РІР»РµРЅРёРµ РЅРѕРІРѕРіРѕ С‚РѕРІР°СЂР°
+	void restockItem(const std::shared_ptr<Stationery>& item, int quantity, const Date& date); // РџРѕРїРѕР»РЅРµРЅРёРµ Р·Р°РїР°СЃР° (СѓРІРµР»РёС‡РёРІР°РµС‚ РєРѕР»РёС‡РµСЃС‚РІРѕ, СЃРѕР·РґР°РµС‚ С‚СЂР°РЅР·Р°РєС†РёСЋ)
+	void sellItem(const std::shared_ptr<Stationery>& item, int quantity, const Date& date); // РџСЂРѕРґР°Р¶Р° С‚РѕРІР°СЂР° (СѓРјРµРЅСЊС€Р°РµС‚ РєРѕР»РёС‡РµСЃС‚РІРѕ, СЃРѕР·РґР°РµС‚ С‚СЂР°РЅР·Р°РєС†РёСЋ)
 
-	std::shared_ptr<Stationery> findItemByName(const std::string& name); // Поиск товара по имени
+	std::shared_ptr<Stationery> findItemByName(const std::string& name); // РџРѕРёСЃРє С‚РѕРІР°СЂР° РїРѕ РёРјРµРЅРё
 
-	const std::vector<std::shared_ptr<Stationery>>& getAllItems() const; // Получение списка всех товаров
+	const std::vector<std::shared_ptr<Stationery>>& getAllItems() const; // РџРѕР»СѓС‡РµРЅРёРµ СЃРїРёСЃРєР° РІСЃРµС… С‚РѕРІР°СЂРѕРІ
 
-	// Генерация отчетов:
-	void generateSalesReport(const Date& start, const Date& end, const std::string& filename); // Отчет по продажам (сумма по категориям)
-	void generateProfitReport(const Date& start, const Date& end, const std::string& filename); // Отчет по прибыли (разница между продажей и закупкой)
+	// Р“РµРЅРµСЂР°С†РёСЏ РѕС‚С‡РµС‚РѕРІ:
+	void generateSalesReport(const Date& start, const Date& end, const std::string& filename); // РћС‚С‡РµС‚ РїРѕ РїСЂРѕРґР°Р¶Р°Рј (СЃСѓРјРјР° РїРѕ РєР°С‚РµРіРѕСЂРёСЏРј)
+	void generateProfitReport(const Date& start, const Date& end, const std::string& filename); // РћС‚С‡РµС‚ РїРѕ РїСЂРёР±С‹Р»Рё (СЂР°Р·РЅРёС†Р° РјРµР¶РґСѓ РїСЂРѕРґР°Р¶РµР№ Рё Р·Р°РєСѓРїРєРѕР№)
 };
 
 #endif
