@@ -37,6 +37,7 @@
     <ProjectGuid>{96e01455-1dcb-4b7d-8410-8b4c0c818b80}</ProjectGuid>
     <RootNamespace>TermPaperCode</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>TheStationeryAccountingProgram</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
